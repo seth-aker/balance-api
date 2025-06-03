@@ -1,8 +1,7 @@
-import oracledb from 'oracledb'
-
+import knex, { Knex } from "knex";
 declare module 'h3' {
     interface H3EventContext {
-        db: oracledb.Connection
+        knex: Knex
     }
   }
 export default defineNitroPlugin(async (nitroApp) => {
@@ -16,19 +15,22 @@ export default defineNitroPlugin(async (nitroApp) => {
     }
     try {
         console.log(`[ORACLEDB] Connecting to database...`)
-        const db = await oracledb.getConnection({
-            user,
-            password,
-            connectString
-        });
+        const _knex = knex({
+            client: 'oracledb',
+            connection: {
+                user,
+                password,
+                connectString
+            }
+        })
         nitroApp.hooks.hook('request', (event) => {
-            event.context.db = db;
+            event.context.knex = _knex;
         });
         console.log(`[ORACLEDB] Connected to database.`)
 
         nitroApp.hooks.hook('close', async () => {
             console.log(`[ORACLEDB] Disconnecting from database...`)
-            await db.close();
+            await _knex.destroy()
             console.log(`[ORACLEDB] Disconnected from database.`)
         })
     } catch (error) {
