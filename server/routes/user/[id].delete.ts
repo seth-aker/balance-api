@@ -4,13 +4,13 @@ export default defineEventHandler(async (event) => {
     try {
         const res = await knex('users').where({userId: userId}).del();
         if(res !== 1) {
-            createError({
+            throw createError({
                 statusCode: 500,
                 statusMessage: "Error deleting user"
             })
         }
     } catch (error) {
         console.error(error)
-        createError(error)
+        throw createError(error)
     }
 })

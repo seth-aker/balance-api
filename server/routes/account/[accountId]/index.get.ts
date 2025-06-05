@@ -4,7 +4,7 @@ export default defineEventHandler(async (event) => {
     try {
         const res = await knex('accounts').where({accountId: accountId});
         if(res.length !== 1) {
-            createError({
+            throw createError({
                 statusCode: 500,
                 statusMessage: "Unable to locate account with id " + accountId
             })
@@ -12,6 +12,6 @@ export default defineEventHandler(async (event) => {
 
     } catch (error) {
         console.error(error);
-        createError(error)
+        throw createError(error)
     }
 })

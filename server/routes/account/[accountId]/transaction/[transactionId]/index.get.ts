@@ -6,6 +6,6 @@ export default defineEventHandler(async (event) => {
     return res
   } catch (error) {
     console.error(error)
-    createError(error)
+    throw createError(error)
   }
 })

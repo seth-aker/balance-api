@@ -1,4 +1,7 @@
+import userAccessRouterGuard from "~/utils/userAccessRouterGuard";
+
 export default defineEventHandler(async (event) => {
+    userAccessRouterGuard(event)
     const knex = event.context.knex;
     const userId = getRouterParam(event, 'id');
     try {
@@ -6,6 +9,6 @@ export default defineEventHandler(async (event) => {
         return res[0]
     } catch (error) {
         console.error(error)
-        createError(error)
+        throw createError(error)
     }
 })

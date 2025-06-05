@@ -6,6 +6,6 @@ export default defineEventHandler(async (event) => {
         await knex('users').where({userid: userId}).update({...user, updatedAt: knex.fn.now() })
     } catch (error) {
         console.error(error)
-        createError(error)
+        throw createError(error)
     }
 })

@@ -4,7 +4,7 @@ export default defineEventHandler(async (event) => {
     try {
         const res = await knex('accounts').insert({...body, accountId: knex.fn.uuid()}, ['accountId']);
         if(res.length === 0) {
-            createError({
+            throw createError({
                 status: 500,
                 statusMessage: "Unable to create account"
             })
@@ -13,6 +13,6 @@ export default defineEventHandler(async (event) => {
         }
     } catch (error) {
         console.error(error)
-        createError(error)
+        throw createError(error)
     }
 })

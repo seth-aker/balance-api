@@ -5,7 +5,7 @@ export default defineEventHandler(async (event) => {
     try{
         const res = await knex('accounts').update(body).where({accountId: accountId})
         if(res <= 0) {
-            createError({
+            throw createError({
                 statusCode: 500,
                 statusMessage: "An error occurred when updating account"
             })
@@ -14,6 +14,6 @@ export default defineEventHandler(async (event) => {
         }
     } catch (error) {
         console.error(error)
-        createError(error)
+        throw createError(error)
     }
 })

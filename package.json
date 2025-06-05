@@ -7,13 +7,19 @@
     "preview": "node .output/server/index.mjs"
   },
   "devDependencies": {
+    "@types/jsonwebtoken": "^9.0.9",
     "@types/node": "^22.15.29",
     "@types/oracledb": "^6.6.0",
     "nitropack": "latest"
   },
   "packageManager": "pnpm@10.8.0+sha512.0e82714d1b5b43c74610193cb20734897c1d00de89d0e18420aebc5977fa13d780a9cb05734624e81ebd81cc876cd464794850641c48b9544326b5622ca29971",
   "dependencies": {
+    "@better-auth/expo": "^1.2.8",
+    "better-auth": "^1.2.8",
+    "jsonwebtoken": "^9.0.2",
     "knex": "^3.1.0",
+    "kysely": "^0.28.2",
+    "kysely-oracledb": "^2.0.8",
     "oracledb": "^6.8.0"
   }
 }

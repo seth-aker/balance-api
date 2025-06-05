@@ -11,6 +11,6 @@ export default defineEventHandler(async (event) => {
         return transactionId;
     } catch (error) {
         console.error(error);
-        createError("There was an error please try again")
+        throw createError("There was an error please try again")
     }
 })
